@@ -1,0 +1,15 @@
+{
+	"U":
+	{
+		"required": 1,
+		"default": "none",
+		"type": "solver"
+	},
+	
+	"BETA":
+	{
+		"required": 1,
+		"default": "none",
+		"type": "solver"	
+	}
+}
