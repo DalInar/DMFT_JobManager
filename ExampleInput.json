@@ -1,0 +1,48 @@
+{
+	"independent parameters":
+	{
+		"BETA": [1,2,3],
+		"t": [2,3]
+	},
+
+	"physics parameters":
+	{
+		"constant":
+		{
+			"MU": 0.0
+		},
+		"variable":
+		{
+			"U": [0,1,4],
+			"J":[-6,2]
+		}
+	},
+
+	"simulation parameters":
+	{
+		"constant":
+		{
+			"H_INIT": 0.0
+		},
+		"variable":
+		{
+			"MAX_TIME": [900,900,1800]
+		}
+	},
+
+	"batch parameters":
+	{
+		"ALLOCATION": "egull_flux",
+		"QUEUE": "flux",
+		"BATCH_TYPE": "PBS",
+		"EMAIL": "oryx@umich.edu",
+		"PROCS": 4,
+		"PMEM": "1gb",
+		"DMFT_LOCATION": "/home/oryx/alps_git/DMFT/dmft",
+		"JOBS_DISTRIBUTION": "SEPARATE",
+		"SUMBIT": "NO",
+		"SUBMIT_COMMAND": "qsub"
+		
+	}
+
+}
