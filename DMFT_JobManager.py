@@ -155,7 +155,7 @@ def setup_separate_jobs(ind_params, phys_const_params, sim_const_params, phys_va
 			job_dict.update(phys_const_params)
 			job_dict.update(sim_const_params)
 			paramfile = write_parameterfile_simple(job_dict, directory)
-			print job_dict
+			#print job_dict
 			job_dict.update(batch_params)
 			
 			#Update the parameter log with this job
