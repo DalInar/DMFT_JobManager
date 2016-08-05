@@ -1,15 +1,428 @@
 {
+	"SC_LOOP":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "switch between single_site, DCA, and CDMFT",
+		"type": ""
+	
+	},
+
 	"U":
 	{
 		"required": 1,
 		"default": "none",
-		"type": "solver"
+		"description": "interaction",
+		"type": ""
+	},
+	
+	"MU":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Chemical Potential",
+		"type": ""
+	},
+	
+	"H":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Staggered (antiferromagnetic) field",
+		"type": ""
 	},
 	
 	"BETA":
 	{
 		"required": 1,
 		"default": "none",
-		"type": "solver"	
+		"description": "Inverse temperature",
+		"type": ""	
+	},
+	
+	"N":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Number of imaginary time discretization points",
+		"type": ""
+	},
+	
+	"NMATSUBARA":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Number of matsubara frequency discretization points",
+		"type": ""
+	},
+	
+	"FLAVORS":
+	{
+		"required": 0,
+		"default": 2,
+		"description": "Number of spins or (diagonal) orbitals",
+		"type": ""
+	},
+	
+	"t":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Hopping element for semi circular & square lattice density of states",
+		"type": ""
+	},
+	
+	"tprime":
+	{
+		"required": 0,
+		"default": 0.0,
+		"description": "Next-nearest Hopping element for square lattice density of states",
+		"type": ""
+	},
+	
+	"t_flavor":
+	{
+		"required": 0,
+		"default": 0.0,
+		"description": "Hopping for mass imbalance for second orbital",
+		"type": ""
+	},
+	
+	"L":
+	{
+		"required": 0,
+		"default": 200,
+		"description": "Number of Brillouin zone points for square lattice integration",
+		"type": ""
+	},
+	
+	"MAX_TIME":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "maximum solver runtime",
+		"type": ""
+	},
+	
+	"Tmax":
+	{
+		"required": 0,
+		"default": 60,
+		"description": "required by base class: max wait time between checking if finished",
+		"type": ""
+	},
+	
+	"Tmin":
+	{
+		"required": 0,
+		"default": 10,
+		"description": "required by base class: min wait time between checking if finished",
+		"type": ""
+	},
+	
+	"SEED":
+	{
+		"required": 0,
+		"default": 42,
+		"description": "Random number seed",
+		"type": ""
+	},
+	
+	
+	"ATOMIC":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "Generate atomic G0 to start from",
+		"type": ""
+	},
+	
+	"H_INIT":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "Initial (staggered) magnetic field",
+		"type": ""
+	},
+	
+	"DOSFILE":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "File contaning table of Density of States",
+		"type": ""
+	},
+	
+	"TWODBS":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Use Hilbert transform for two-dimensional band structure",
+		"type": ""
+	},
+	
+	"SELFCONSISTENCY_CONVERGENCE":
+	{
+		"required": 0,
+		"default": 1e-10,
+		"description": "Difference in Green's function at which the iteration is converged",
+		"type": "sc"
+	},
+	
+	"MAX_IT":
+	{
+		"required": 0,
+		"default": 1000,
+		"description": "Maximum number of DMFT iterations",
+		"type": "sc"
+	},
+	
+	"RELAX_RATE":
+	{
+		"required": 0,
+		"default": 1,
+		"description": "Convergence acceleration (or deceleration) parameter. Choose 1 if unsure.",
+		"type": "sc"
+	},
+		
+	"SPIN_SYMMETRIZATION":
+	{
+		"required": 0,
+		"default": true,
+		"description": "symmetrize 'up' and 'down' spins after each solver call.",
+		"type": "sc"
+	},
+	
+	"SOLVER":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "path to the solver executable",
+		"type": "solver"
+	},
+	
+	"INFILE_H5GF":
+	{
+		"required": 0,
+		"default": "alps_solver_in.h5gf",
+		"description": "Filename for temporary file",
+		"type": "solver"
+	},	
+	
+	"OUTFILE_H5GF":
+	{
+		"required": 0,
+		"default": "alps_solver_out.h5gf",
+		"description": "Filename for temporary file",
+		"type": "solver"
+	},
+	
+	"G0_OMEGA_INPUT":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Location of the input G0 file",
+		"type": "dca"
+	},
+	
+	"G0_OMEGA_OUTPUT":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "Location of the output G0 file for continuing iterations",
+		"type": "dca"
+	},
+	
+	"INITIAL_G0":
+	{
+		"required": 0,
+		"default": "Free",
+		"description": "choose ISOLATED or FREE for initial G0s",
+		"type": "dca"
+	},
+	
+	"IMBALANCE":
+	{
+		"required": 0,
+		"default": false,
+		"description": "set to true for mass imbalance simulation",
+		"type": "dca"
+	},
+	
+	"PHASE":
+	{
+		"required": 0,
+		"default": false,
+		"description": "set to true for simulation with phase",
+		"type": "dca"
+	},
+	
+	"PHASE_0":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "Phase in direction 0",
+		"type": "dca"
+	},
+	
+	"PHASE_1":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "Phase in direction 1",
+		"type": "dca"
+	},
+	
+	"PHASE_2":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "Phase in direction 2",
+		"type": "dca"
+	},
+	
+	"AFM_SELFCONSISTENCY":
+	{
+		"required": 0,
+		"default": false,
+		"description": "Use the AFM self-consistency condition.",
+		"type": "dca"
+	},
+	
+	"LATTICE":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "name of the cluster",
+		"type": "dca"
+	},
+	
+	"LATTICE_LIBRARY":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "name of the xml cluster defintion file",
+		"type": "dca"
+	},
+	
+	"LATTICE_DUMP":
+	{
+		"required": 0,
+		"default": "cluster.h5",
+		"description": "name of the cluster transformer hdf5 dump file",
+		"type": "dca"
+	},
+	
+	"SITES":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "number of cluster sites",
+		"type": "dca"
+	},
+	
+	"L":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "linear discretization of cluster k-point integration",
+		"type": "dca"
+	},
+	
+	"NSELF":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "number of points for self-energy measurement",
+		"type": "ctaux"
+	},
+	
+	"K":
+	{
+		"required": 0,
+		"default": 1,
+		"description": "decoupling constant",
+		"type": "ctaux"
+	},
+	
+	"N_MEAS":
+	{
+		"required": 0,
+		"default": 50,
+		"description": "measurement interval",
+		"type": "ctaux"
+	},
+	
+	"RECOMPUTE_INTERVAL":
+	{
+		"required": 0,
+		"default": 5000,
+		"description": "Interval after which the entire matrix is recomputed to guard against roundoff errors",
+		"type": "ctaux"
+	},
+	
+	"SWAPALL":
+	{
+		"required": 0,
+		"default": false,
+		"description": "Swap orbitals during recompute",
+		"type": "ctaux"
+	},
+	
+	"KMAX":
+	{
+		"required": 0,
+		"default": 64,
+		"description": "Size of precomputed matrix for fastupdate",
+		"type": "ctaux"
+	},
+	
+	"NFLIP":
+	{
+		"required": 0,
+		"default": 5,
+		"description": "number of spin flip updates per insertion update",
+		"type": "ctaux"
+	},
+	
+	"SWEEPS":
+	{
+		"required": 0,
+		"default": "system max",
+		"description": "number of Monte Carlo sweeps",
+		"type": "ctaux"
+	},
+	
+	"THERMALIZATION":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "number of Monte Carlo thermalization steps",
+		"type": "ctaux"
+	},
+	
+	"START_SLICES":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "number of randomly distributed points to start from",
+		"type": "ctaux"
+	},
+	
+	"CHECKPOINT":
+	{
+		"required": 0,
+		"default": "dump.h5",
+		"description": "file name of dump file",
+		"type": "ctaux"
+	},
+	
+	"N_OMEGA_MEAS":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "do we measure in frequency space or in time space?",
+		"type": "ctaux"
 	}
+	
 }

@@ -13,8 +13,7 @@
 		},
 		"variable":
 		{
-			"U": [0,1,4],
-			"J":[-6,2]
+			"U": [0,1,4]
 		}
 	},
 
@@ -22,7 +21,9 @@
 	{
 		"constant":
 		{
-			"H_INIT": 0.0
+			"H_INIT": 0.0,
+			"MAX_IT":3,
+			"SOLVER": "/home/oryx/alps_git/DMFT-Solvers/CTAUX_IMAG/build2/ctaux_imag_mpi"
 		},
 		"variable":
 		{
