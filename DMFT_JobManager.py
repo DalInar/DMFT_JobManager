@@ -32,7 +32,7 @@ def write_batch_header(batch_file, processname, batch_parameters, total_time):
 		batch_file.write("#PBS -N "+processname+"\n")
 		batch_file.write("#PBS -M "+batch_parameters["EMAIL"]+"\n")
 		batch_file.write("#PBS -m abe\n")
-		batch_file.write("#PBS -l procs="+str(batch_parameters["PROCS"])+",pmem="+str(batch_parameters["PMEM"])+",walltime="+str(int(total_time * 2))+":00:00\n")
+		batch_file.write("#PBS -l procs="+str(batch_parameters["PROCS"])+",pmem="+str(batch_parameters["PMEM"])+",walltime="+str(int(total_time * 2+1))+":00:00\n")
 		batch_file.write("#PBS -j oe\n")
 		batch_file.write("#PBS -V\n")
 		batch_file.write("#PBS -A "+batch_parameters["ALLOCATION"]+"\n")
