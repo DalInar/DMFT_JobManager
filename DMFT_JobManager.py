@@ -119,6 +119,9 @@ def write_parameterfile_simple(job_parameters, directory):
 	return paramfile
 	
 def setup_separate_jobs(ind_params, phys_const_params, sim_const_params, phys_var_params, sim_var_params, batch_params, log, num_var_params):
+
+	submit_script = open("submit_script.sh","w")
+	start_location = os.getcwd()
 	#Get all of the independent parameter sets
 	indep_dirs = [{}]
 	
@@ -191,7 +194,14 @@ def setup_separate_jobs(ind_params, phys_const_params, sim_const_params, phys_va
 			batchfile = open(directory+"/hubbard.pbs",'w')
 			write_batch_header(batchfile, directory, batch_params, total_time/3600.0)
 			batchfile.write(batch_params["DMFT_LOCATION"]+" paramfile\n")
-			batchfile.close()	
+			batchfile.close()
+			
+			#Add to submit_script
+			submit_script.write("cd "+directory)
+			submit_script.write("qsub hubbard.pbs")
+			submit_script.write("cd "+start_location)
+			
+	submit_script.close()	
 	
 
 def setup_together_jobs():
