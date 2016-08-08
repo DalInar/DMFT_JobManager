@@ -4,6 +4,8 @@ import subprocess as sp
 import argparse
 import json
 
+indep_combos=False
+
 #Includes a walltime safety factor of 2
 def write_batch_header(batch_file, processname, batch_parameters, total_time):
 	if(batch_parameters["BATCH_TYPE"] == "SBATCH"):
@@ -119,18 +121,30 @@ def write_parameterfile_simple(job_parameters, directory):
 def setup_separate_jobs(ind_params, phys_const_params, sim_const_params, phys_var_params, sim_var_params, batch_params, log, num_var_params):
 	#Get all of the independent parameter sets
 	indep_dirs = [{}]
-	for field in ind_params.keys():
-		old_len = len(indep_dirs)
-		for k in range(0,len(indep_dirs)):
-			for param in ind_params[field]:
-				temp=indep_dirs[k].copy()
-				temp[field]=param
-				indep_dirs.append(temp)
-		del indep_dirs[0:old_len]
+	
+	#Do we want all combinatoric mixtures of indepedent parameters?
+	if(indep_combos):
+		for field in ind_params.keys():
+			old_len = len(indep_dirs)
+			for k in range(0,len(indep_dirs)):
+				for param in ind_params[field]:
+					temp=indep_dirs[k].copy()
+					temp[field]=param
+					indep_dirs.append(temp)
+			del indep_dirs[0:old_len]
+	else:	
+		indep_dirs = []
+		num_ind_jobs = len(ind_params[ind_params.keys()[0]])
+		for k in range(0, num_ind_jobs):
+			temp = {}
+			for field in ind_params.keys():
+				temp[field] = ind_params[field][k]
+			indep_dirs.append(temp)
 		
 	#Create a directory for each set of independent parameters
 	for indep_job in indep_dirs:
 		dir_name="hub"
+		print indep_job
 		for field in indep_job:
 			dir_name=dir_name+"_"+str(field)+"_"+str(indep_job[field])
 		print "Creating independent param directory: "+dir_name
@@ -214,9 +228,12 @@ def main():
 	ind_params_names = len(ind_params.keys())
 	print("#independent parameter names: "+str(ind_params_names))
 	
-	num_ind_params=1
-	for key in ind_params.keys():
-		num_ind_params *= len(ind_params[key])
+	if(indep_combos):
+		num_ind_params=1
+		for key in ind_params.keys():
+			num_ind_params *= len(ind_params[key])
+	else:
+		num_ind_params = len(ind_params[ind_params.keys()[0]])
 	print("#independent parameter sets: "+str(num_ind_params))
 	
 	#Figure out how many variable parameters there are, and then total number of parameter sets

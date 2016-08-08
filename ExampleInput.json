@@ -1,7 +1,8 @@
 {
 	"independent parameters":
 	{
-		"INITIAL_G0": ["ISOLATED"]
+		"INITIAL_G0": ["ISOLATED","FREE"],
+		"SEED": [3,4]
 	},
 
 	"physics parameters":
@@ -32,7 +33,6 @@
 			"SC_LOOP": "DCA",
 			"NMATSUBARA": 512,
 			"N": 512,
-			"SEED": 3,
 			"MAX_TIME":900,
 			"MAX_IT":1,
 			"G0_OMEGA_INPUT": "G0_omega_input",
