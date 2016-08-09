@@ -147,7 +147,7 @@
 	
 	"DOSFILE":
 	{
-		"required": 1,
+		"required": 0,
 		"default": "none",
 		"description": "File contaning table of Density of States",
 		"type": ""
@@ -155,7 +155,7 @@
 	
 	"TWODBS":
 	{
-		"required": 1,
+		"required": 0,
 		"default": "none",
 		"description": "Use Hilbert transform for two-dimensional band structure",
 		"type": ""
