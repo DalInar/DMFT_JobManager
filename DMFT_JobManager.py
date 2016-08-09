@@ -197,9 +197,9 @@ def setup_separate_jobs(ind_params, phys_const_params, sim_const_params, phys_va
 			batchfile.close()
 			
 			#Add to submit_script
-			submit_script.write("cd "+directory)
-			submit_script.write("qsub hubbard.pbs")
-			submit_script.write("cd "+start_location)
+			submit_script.write("cd "+directory+"\n")
+			submit_script.write("qsub hubbard.pbs\n")
+			submit_script.write("cd "+start_location+"\n")
 			
 	submit_script.close()	
 	
