@@ -214,7 +214,7 @@ def main():
 	print("Starting at: "+start_location)
 		
 	#Get the name of the json file containing the parameters
-	parser = argparse.ArgumentParser(description='Creates a batch file and parameter files that will perform a series of calculations on a system as progessively lower temperatures.')
+	parser = argparse.ArgumentParser(description='Creates a batch file and parameter files that will perform a series of calculations for the given parameters')
 	parser.add_argument('input_file',help='JSON file containing the parameters')
 	args = parser.parse_args()	
 	
