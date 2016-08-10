@@ -1,0 +1,48 @@
+{
+	"Jackknife":
+	{
+		"SEED": [3,4]
+	},
+
+	"Variable":
+	{
+		"PHASE_0": [0.0, 0.62831853071795862, 1.2566370614359172, 1.8849555921538759, 2.5132741228718345]
+	},
+	
+	"Independent":
+	{
+		"PHASE_1": 0.0,
+		"BETA": 2,
+		"MU": 0.0,
+		"U": 4,
+		"t": 1,
+		"FLAVORS": 2,
+		"LATTICE": "Betts2D-4A",
+		"PHASE": 1,
+		"INITIAL_G0":"ISOLATED"
+	},
+
+	"Data":
+	{
+		"SELF_ENERGY":
+		{
+			"TYPE": "READ",
+			"FILENAME": "selfenergy_0",
+			"ELEMENT": [4,2],
+			"OUTPUT": "selfenergies.dat"
+		},
+		"ENERGY":
+		{
+			"TYPE": "EXEC",
+			"PROG": "/home/oryx/ClionProjects/energy-alpscore/build/energy_alpscore",
+			"OUTPUT": "energies.dat"
+		},
+		"MAGIC":
+		{
+			"TYPE": "WAND",
+			"PROG": "/home/oryx/ClionProjects/energy-alpscore/build/energy_alpscore",
+			"OUTPUT": "energies.dat"
+		}
+	}
+
+}
