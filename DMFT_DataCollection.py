@@ -37,6 +37,8 @@ def locate_param_sets(params, param_log):
 			for y in param_log.keys():
 				if(equiv_dicts(x,param_log[y])):
 					found=True
+					#x = param_log[y].copy()
+					#print param_log[y]
 					x["Location"] = y
 			if(not found):
 				print "Failed to locate this parameter set:"
@@ -156,10 +158,10 @@ def run_old_energy_code(param_sets, target):
 #  --mu arg              chemical potential
 #  --beta arg            inverse temperature
 #  --U arg               interaction
-			
+			print param_set
 			options = "--directory "+str(".")+" --nfreq "+str(param_set["NMATSUBARA"])+" --nsite "+str(param_set["SITES"])+" --mu "+str(param_set["MU"])+" --beta "+str(param_set["BETA"])+" --U "+str(param_set["U"])
 			with cd(target_dir):
-				sp.call(target_prog+" "+options+" > energy.dat", shell=True)
+				sp.call(target_prog+" "+options+" > old_energy.dat", shell=True)
 				f=open("old_energy.dat","r")
 				data = f.readline()
 				f.close()
