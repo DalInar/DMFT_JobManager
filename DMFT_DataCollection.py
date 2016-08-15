@@ -129,8 +129,38 @@ def exec_data(param_sets, target):
 			print target_dir
 			target_prog = target["PROG"]
 			with cd(target_dir):
-				sp.call(target_prog+" > energy.dat",shell=True)
+				sp.call(target_prog+" > energy.dat", shell=True)
 				f=open("energy.dat","r")
+				data = f.readline()
+				f.close()
+			data = data.split()
+			data = [float(i) for i in data]
+			jk_data.append(data)
+		data_vals.append(jk_data)
+	return data_vals
+	
+def run_old_energy_code(param_sets, target):
+	start_location = os.getcwd()
+	data_vals = []
+	for jk_set in param_sets:
+		jk_data = []
+		for param_set in jk_set:
+			target_dir = param_set["Location"]
+			print target_dir
+			target_prog = target["PROG"]
+#			Allowed options:
+#  --help                show this help
+#  --directory arg       directory for GF
+#  --nfreq arg           number of Matsubara freqs to integrate
+#  --nsite arg           number of sites of cluster
+#  --mu arg              chemical potential
+#  --beta arg            inverse temperature
+#  --U arg               interaction
+			
+			options = "--directory "+str(".")+" --nfreq "+str(param_set["NMATSUBARA"])+" --nsite "+str(param_set["SITES"])+" --mu "+str(param_set["MU"])+" --beta "+str(param_set["BETA"])+" --U "+str(param_set["U"])
+			with cd(target_dir):
+				sp.call(target_prog+" "+options+" > energy.dat", shell=True)
+				f=open("old_energy.dat","r")
 				data = f.readline()
 				f.close()
 			data = data.split()
@@ -145,6 +175,8 @@ def acquire_data(param_sets, target):
 		return read_data(param_sets, target)
 	elif(method == "EXEC"):
 		return exec_data(param_sets, target)
+	elif(method == "OldEnergyCode"):
+		return run_old_energy_code(param_sets, target)
 	else:
 		print "Error! Unknown data acquisition type!"
 		print target
