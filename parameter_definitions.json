@@ -200,6 +200,14 @@
 		"description": "path to the solver executable",
 		"type": "solver"
 	},
+
+	"USE_ISOLATED_TAILS":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "should we use isolated cluster tails?",
+		"type": "solver"
+	},
 	
 	"INFILE_H5GF":
 	{
