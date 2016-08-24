@@ -99,7 +99,7 @@ def get_param_sets(params):
 	return param_sets
 	
 #Read the requested data from the provided file, at the indicated [line, pos] in param_set["ELEMENT"]
-def read_data(param_sets, target):
+def read_data(param_sets, target, target_name):
 	start_location = os.getcwd()
 	data_vals=[]
 	for jk_set in param_sets:
@@ -118,10 +118,11 @@ def read_data(param_sets, target):
 			data = line[target_element[1]]
 			f.close()
 			jk_data.append(data)
+			param_set[target_name] = data
 		data_vals.append(jk_data)
 	return data_vals
 	
-def exec_data(param_sets, target):
+def exec_data(param_sets, target, target_name):
 	start_location = os.getcwd()
 	data_vals = []
 	for jk_set in param_sets:
@@ -138,10 +139,11 @@ def exec_data(param_sets, target):
 			data = data.split()
 			data = [float(i) for i in data]
 			jk_data.append(data)
+			param_set[target_name] = data
 		data_vals.append(jk_data)
 	return data_vals
 	
-def run_old_energy_code(param_sets, target):
+def run_old_energy_code(param_sets, target, target_name):
 	start_location = os.getcwd()
 	data_vals = []
 	for jk_set in param_sets:
@@ -168,17 +170,18 @@ def run_old_energy_code(param_sets, target):
 			data = data.split()
 			data = [float(i) for i in data]
 			jk_data.append(data)
+			param_set[target_name] = data
 		data_vals.append(jk_data)
 	return data_vals
 	
-def acquire_data(param_sets, target):
+def acquire_data(param_sets, target, target_name):
 	method = target["TYPE"]
 	if(method == "READ"):
-		return read_data(param_sets, target)
+		return read_data(param_sets, target, target_name)
 	elif(method == "EXEC"):
-		return exec_data(param_sets, target)
+		return exec_data(param_sets, target, target_name)
 	elif(method == "OldEnergyCode"):
-		return run_old_energy_code(param_sets, target)
+		return run_old_energy_code(param_sets, target, target_name)
 	else:
 		print "Error! Unknown data acquisition type!"
 		print target
@@ -335,7 +338,7 @@ def main():
 	for data_target in params["Data"].keys():
 		print "Getting "+data_target
 		output_file = out_fileprefix+data_target + ".dat"
-		data = acquire_data(param_sets, params["Data"][data_target])
+		data = acquire_data(param_sets, params["Data"][data_target], data_target)
 		
 		if(len(data[0]) == 0):
 			continue
@@ -352,7 +355,7 @@ def main():
 		print "Results: ",results
 		print "Error: ", jk_error
 		f = open(output_file, 'w')
-		f.write(var_param_name+"\t"+data_target+" (mean)\t"+data_target+" (jk)\tError\n")
+		f.write("#"+var_param_name+"\t"+data_target+" (mean)\t"+data_target+" (jk)\tError\n")
 		for i in range(0, len(results)):
 			f.write(str(var_params[i])+"\t")
 			if(type(mean[i]) is list):
@@ -365,8 +368,20 @@ def main():
 			else:
 				f.write(str(mean[i])+"\t"+str(results[i])+"\t"+str(jk_error[i])+"\t")
 			f.write("\n")
-		f.close()	
+		f.close()
+				
 	
+	
+						
+	data_log_filename = out_fileprefix+"DATALOG.json"
+	data_log = open(data_log_filename,"w")
+	log={}
+	for jk_set in param_sets:
+		for param_set in jk_set:
+			print param_set
+			log.update({param_set["Location"]:param_set})
+	data_log.write(json.dumps(log))
+	data_log.close()
 	
 if __name__ == "__main__":
 	main()
