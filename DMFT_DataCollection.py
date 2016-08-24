@@ -343,7 +343,8 @@ def main():
 			(mean, results, jk_error) = jackknife(data)
 		else:
 			if(type(data[0][0]) is list):
-				(mean, results, jk_error) = (data[0], [[0]*len(data[0][0])]*len(data[0]), [[[0]*len(data[0][0])]*len(data[0]))
+				blank = [[0]*len(data[0][0])]*len(data[0])
+				(mean, results, jk_error) = (data[0], blank, blank)
 			else:
 				(mean, results, jk_error) = (data[0], [0]*len(data[0]), [0]*len(data[0]))
 		print output_file
