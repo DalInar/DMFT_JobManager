@@ -344,6 +344,7 @@ def main():
 		else:
 			(mean, results, jk_error) = (data[0], [0]*len(data[0]), [0]*len(data[0]))
 		print output_file
+		print "Results: ",mean
 		print "Results: ",results
 		print "Error: ", jk_error
 		f = open(output_file, 'w')
