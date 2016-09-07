@@ -158,7 +158,7 @@ def get_bipartite(param_sets, target, target_name):
 			with cd(target_dir):
 				f=h5py.File("cluster.h5","r")
 				bipart=f["/"+lattice+"/bipartite"]
-				print lattice+", bipart= "+bipart
+				print lattice+", bipart= "+str(bipart)
 				f.close()
 			jk_data.append(bipart)
 		data_vals.append(jk_data)
