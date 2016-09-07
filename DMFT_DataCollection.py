@@ -4,6 +4,7 @@ import subprocess as sp
 import argparse
 import json
 import math
+import h5py
 
 @contextmanager
 def cd(newdir):
@@ -131,6 +132,7 @@ def exec_data(param_sets, target, target_name):
 			target_dir = param_set["Location"]
 			print target_dir
 			target_prog = target["PROG"]
+			output_file = target["OUTPUT"]
 			with cd(target_dir):
 				sp.call(target_prog+" > energy.dat", shell=True)
 				f=open("energy.dat","r")
@@ -142,6 +144,26 @@ def exec_data(param_sets, target, target_name):
 			param_set[target_name] = data
 		data_vals.append(jk_data)
 	return data_vals
+	
+def get_bipartite(param_sets, target, target_name):
+	start_location = os.getcwd()
+	data_vals = []
+	for jk_set in param_sets:
+		jk_data=[]
+		for param_set in jk_set:
+			target_dir = param_set["Location"]
+			lattice = param_set["LATTICE"]
+			print target_dir
+			output_file=target["OUTPUT"]
+			with cd(target_dir):
+				f=h5py.File("cluster.h5","r")
+				bipart=f["/"+lattice+"/bipartite"]
+				print lattice+", bipart= "+bipart
+				f.close()
+			jk_data.append(bipart)
+		data_vals.append(jk_data)
+	return data_vals
+				
 	
 def run_old_energy_code(param_sets, target, target_name):
 	start_location = os.getcwd()
@@ -182,6 +204,8 @@ def acquire_data(param_sets, target, target_name):
 		return exec_data(param_sets, target, target_name)
 	elif(method == "OldEnergyCode"):
 		return run_old_energy_code(param_sets, target, target_name)
+	elif(method == "BIPARTITE"):
+		return get_bipartite(param_sets, target, target_name)
 	else:
 		print "Error! Unknown data acquisition type!"
 		print target
