@@ -11,8 +11,9 @@ def write_batch_header(batch_file, processname, batch_parameters, total_time):
 	if(batch_parameters["BATCH_TYPE"] == "SBATCH"):
 		batch_file.write("#!/bin/bash\n")
 		batch_file.write("#SBATCH -J "+processname+"\n")
-		batch_file.write("#SBATCH -o "+processname+".o%j\n")
-		batch_file.write("#SBATCH -e "+processname+".e%j\n")
+		batch_file.write("#SBATCH -o output.o%j\n")
+		batch_file.write("#SBATCH -e output.e%j\n")
+		batch_file.write("#SBATCH -N "+batch_parameters["NODES"]+"\n")
 		batch_file.write("#SBATCH -n "+batch_parameters["PROCS"]+"\n")
 		batch_file.write("#SBATCH -p normal\n")
 		batch_file.write("#SBATCH -t "+str(int(total_time * 2))+":00:00\n")
@@ -198,7 +199,10 @@ def setup_separate_jobs(ind_params, phys_const_params, sim_const_params, phys_va
 			
 			#Add to submit_script
 			submit_script.write("cd "+directory+"\n")
-			submit_script.write("qsub hubbard.pbs\n")
+			if(batch_params["BATCH_TYPE"] == "PBS"): 
+				submit_script.write("qsub hubbard.pbs\n")
+			elif(batch_params["BATCH_TYPE"] == "SBATCH"): 
+				submit_script.write("sbatch hubbard.pbs\n")
 			submit_script.write("cd "+start_location+"\n")
 			
 	submit_script.close()	
