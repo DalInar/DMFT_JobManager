@@ -219,6 +219,8 @@ def acquire_data(param_sets, target, target_name):
 	method = target["TYPE"]
 	if(method == "READ"):
 		return read_data(param_sets, target, target_name)
+	elif(method == "READH5"):
+		return read_h5(param_sets, target, target_name)
 	elif(method == "EXEC"):
 		return exec_data(param_sets, target, target_name)
 	elif(method == "OldEnergyCode"):
