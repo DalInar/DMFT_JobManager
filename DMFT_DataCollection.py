@@ -5,6 +5,7 @@ import argparse
 import json
 import math
 import h5py
+import numpy
 
 @contextmanager
 def cd(newdir):
@@ -176,7 +177,7 @@ def read_h5(param_sets, target, target_name):
 				f=h5py.File("sim.h5","r")
 				h5path = target["H5PATH"]
 				data=f[h5path].value
-				print data
+				print data					
 				f.close()
 			jk_data.append(data)
 		data_vals.append(jk_data)
@@ -389,7 +390,7 @@ def main():
 		elif(len(data) > 1):
 			(mean, results, jk_error) = jackknife(data)
 		else:
-			if(type(data[0][0]) is list):
+			if(type(data[0][0]) is list or type(data[0][0]) is numpy.ndarray):
 				blank = [[0]*len(data[0][0])]*len(data[0])
 				(mean, results, jk_error) = (data[0], blank, blank)
 			else:
@@ -402,7 +403,8 @@ def main():
 		f.write("#"+var_param_name+"\t"+data_target+" (mean)\t"+data_target+" (jk)\tError\n")
 		for i in range(0, len(results)):
 			f.write(str(var_params[i])+"\t")
-			if(type(mean[i]) is list):
+			print type(mean[i])
+			if(type(mean[i]) is list or type(mean[i]) is numpy.ndarray):
 				for x in mean[i]:
 					f.write(str(x)+"\t")
 				for x in results[i]:
