@@ -3,7 +3,7 @@ import numpy
 
 L = 7
 IncEndPt = True
-MaxPhase = 4*math.pi
+MaxPhase = 2*math.pi
 
 theta = numpy.linspace(0, MaxPhase, L, IncEndPt)
 thetas = [(x,y) for x in theta for y in theta]

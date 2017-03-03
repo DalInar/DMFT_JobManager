@@ -163,6 +163,25 @@ def get_bipartite(param_sets, target, target_name):
 			jk_data.append(bipart)
 		data_vals.append(jk_data)
 	return data_vals
+
+def read_h5(param_sets, target, target_name):
+	start_location = os.getcwd()
+	data_vals = []
+	for jk_set in param_sets:
+		jk_data=[]
+		for param_set in jk_set:
+			target_dir = param_set["Location"]
+			print target_dir
+			output_file=target["OUTPUT"]
+			with cd(target_dir):
+				f=h5py.File("sim.h5","r")
+				h5path = target["H5PATH"]
+				data=f[h5path].value
+				print data
+				f.close()
+			jk_data.append(data)
+		data_vals.append(jk_data)
+	return data_vals
 				
 	
 def run_old_energy_code(param_sets, target, target_name):
