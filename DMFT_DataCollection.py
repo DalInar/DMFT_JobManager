@@ -172,7 +172,6 @@ def read_h5(param_sets, target, target_name):
 		for param_set in jk_set:
 			target_dir = param_set["Location"]
 			print target_dir
-			output_file=target["OUTPUT"]
 			with cd(target_dir):
 				f=h5py.File("sim.h5","r")
 				h5path = target["H5PATH"]
