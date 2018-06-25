@@ -15,6 +15,14 @@
 		"description": "interaction",
 		"type": ""
 	},
+
+	"V":
+	{
+		"required":0,
+		"default":0,
+		"description": "nearest neighbor interaction",
+		"type":""
+	},
 	
 	"MU":
 	{
@@ -158,7 +166,7 @@
 		"required": 0,
 		"default": "none",
 		"description": "Use Hilbert transform for two-dimensional band structure",
-		"type": ""
+		"type": "sc"
 	},
 	
 	"SELFCONSISTENCY_CONVERGENCE":
@@ -191,6 +199,22 @@
 		"default": true,
 		"description": "symmetrize 'up' and 'down' spins after each solver call.",
 		"type": "sc"
+	},
+
+	"CO_SELFCONSISTENCY":
+	{
+		"required":0,
+		"default":0,
+		"description":"Do we want to find charge order?",
+		"type":"dca"
+	},
+
+	"SPIN_FLIP_TYPE":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "use regular (0) or submatrix (1) spinflips",
+		"type": "ctaux"
 	},
 	
 	"SOLVER":
@@ -294,7 +318,7 @@
 		"required": 0,
 		"default": false,
 		"description": "Use the AFM self-consistency condition.",
-		"type": "dca"
+		"type": "sc"
 	},
 	
 	"LATTICE":
@@ -347,7 +371,7 @@
 	
 	"K":
 	{
-		"required": 0,
+		"required": 1,
 		"default": 1,
 		"description": "decoupling constant",
 		"type": "ctaux"
@@ -387,8 +411,8 @@
 	
 	"NFLIP":
 	{
-		"required": 0,
-		"default": 5,
+		"required": 1,
+		"default": 2,
 		"description": "number of spin flip updates per insertion update",
 		"type": "ctaux"
 	},
@@ -428,9 +452,154 @@
 	"N_OMEGA_MEAS":
 	{
 		"required": 1,
-		"default": "none",
-		"description": "do we measure in frequency space or in time space?",
+		"default": 512,
+		"description": "How many mat freqs measured",
 		"type": "ctaux"
-	}
+	},
+
+	"DMFT_FRAMEWORK":
+	{
+		"required": 0,
+		"default": 1,
+		"description": "connect with DMFT",
+		"type": "cthyb"
+	},
+
+	"N_MEAS":
+	{
+		"required": 0,
+		"default": 15,
+		"description": "updates between measurements",
+		"type": "ctaux"
+	},
+
+	"SWEEPS":
+	{
+		"required": 0,
+		"default": 100000,
+		"description": "total sweeps",
+		"type": "ctaux"
+	},
+
+	"TEXT_OUTPUT":
+	{
+		"required": 0,
+		"default": 1,
+		"description": "output text AND hdf5",
+		"type": "cthyb"
+	},
 	
+	"THERMALIZATION":
+	{
+		"required": 0,
+		"default": 5000,
+		"description": "thermalization sweeps",
+		"type": "ctaux"
+	},
+
+	"FilterNullVertices":
+	{
+		"required":0,
+		"default":0,
+		"description": "include (0) or exclude (1) null vertices during insertion",
+		"type":"ctaux"
+	},
+
+	"G0_OMEGA_INPUT":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "input G for cthyb",
+		"type": "dca"
+	},
+	
+	"G0_OMEGA_OUTPUT":
+	{
+		"required": 1,
+		"default": "none",
+		"description": "output G for cthyb",
+		"type": "dca"
+	},
+
+	"MU_STAG_INIT":
+	{
+		"required": 1,
+		"default": 0,
+		"description": "Initial staggered Mu, first iteration",
+		"type": "dca"
+	},
+
+	"MU_STAG":
+	{
+		"required": 1,
+		"default": 0,
+		"description": "Constant staggered mu",
+		"type":"dca"
+	},
+	
+	"MAX_HISTOGRAM_ORDER":
+	{
+		"required": 0,
+		"default":100,
+		"description": "max order recorded",
+		"type":"ctaux"
+	},
+	
+	"REVERT_ON_ERROR":
+	{
+		"required": 1,
+		"default": 1,
+		"description": "revert to last recompute when numerical error occurs",
+		"type":"ctaux"
+	},
+
+	"ADAPTIVE_RECOMPUTE":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "change recompute interval based on recompute error",
+		"type":"ctaux"
+	},
+
+	"ADAPTIVE_RECOMPUTE_TOLERANCE":
+	{
+		"required": 0,
+		"default": 0.00001,
+		"description": "change recompute interval when error greater or less than this",
+		"type":"ctaux"
+	},
+
+	"ADAPTIVE_SPINFLIP":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "change use of spin flips based on recompute error",
+		"type":"ctaux"
+	},
+
+	"RECOMPUTE_TOLERANCE":
+	{
+		"required": 0,
+		"default": 0.01,
+		"description": "maximum allowed recompute error, triggers crash or revert",
+		"type":"ctaux"
+	},
+
+
+	"START_SPINFLIP_ON_SWEEP":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "don't use spin flip updates until this sweep",
+		"type":"ctaux"
+	},
+
+	"RECORD_ERROR":
+	{
+		"required": 0,
+		"default": 0,
+		"description": "write recompute error to file",
+		"type":"ctaux"
+	}
+
 }
