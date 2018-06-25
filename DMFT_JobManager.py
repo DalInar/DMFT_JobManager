@@ -8,6 +8,17 @@ indep_combos=False
 
 #Includes a walltime safety factor of 2
 def write_batch_header(batch_file, processname, batch_parameters, total_time):
+	if(batch_parameters["COMPUTER"] == "CORI"):
+		batch_file.write("#!/bin/bash\n")
+		batch_file.write("#SBATCH -J "+processname+"\n")
+		batch_file.write("#SBATCH -N "+batch_parameters["NODES"]+"\n")
+		batch_file.write("#SBATCH -q regular\n")
+		batch_file.write("#SBATCH -C haswell\n")
+		batch_file.write("#SBATCH -t "+str(int(total_time * 1.2))+":15:00\n")
+		batch_file.write("#SBATCH --mail-user="+batch_parameters["EMAIL"]+"\n")
+		batch_file.write("#SBATCH --mail-type=ALL\n")
+		return	
+	
 	if(batch_parameters["BATCH_TYPE"] == "SBATCH"):
 		batch_file.write("#!/bin/bash\n")
 		batch_file.write("#SBATCH -J "+processname+"\n")
@@ -15,7 +26,8 @@ def write_batch_header(batch_file, processname, batch_parameters, total_time):
 		batch_file.write("#SBATCH -e output.e%j\n")
 		batch_file.write("#SBATCH -N "+batch_parameters["NODES"]+"\n")
 		batch_file.write("#SBATCH -n "+batch_parameters["PROCS"]+"\n")
-		batch_file.write("#SBATCH -p normal\n")
+		batch_file.write("#SBATCH -p regular\n")
+		batch_file.write("#SBATCH -C haswell\n")
 		batch_file.write("#SBATCH -t "+str(int(total_time * 2))+":00:00\n")
 		batch_file.write("#SBATCH --mail-user="+batch_parameters["EMAIL"]+"\n")
 		batch_file.write("#SBATCH --mail-type=begin\n")
